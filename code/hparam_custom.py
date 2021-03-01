@@ -23,8 +23,10 @@ class HPStft:
 
 class HPText:
     # needed to make independent on the directory from which python is invoked
-    dataset = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'datasets/data/TITML-IDN-LJ')
-    num_train, num_valid = 325, 330 # 13000, 13099  # train will use (0, 13000), valid wil use (13000, 13099)
+    #dataset = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'datasets/data/TITML-IDN-LJ')
+    dataset = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'datasets/data/LJ-DAMAYANTI')
+    #num_train, num_valid = 325, 330 # 13000, 13099  # train will use (0, 13000), valid wil use (13000, 13099)
+    num_train, num_valid = 13000, 13099
 
     punctuation = list("'\",.:?!")
     graphemes = ["<pad>", "<unk>"] + list('abcdefghijklmnopqrstuvwxyz ') + punctuation

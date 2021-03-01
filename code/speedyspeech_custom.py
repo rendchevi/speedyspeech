@@ -481,7 +481,7 @@ if __name__ == '__main__':
     )
     #'''
     # Load checkpoint file
-    checkpoint = torch.load('/content/drive/MyDrive/SpeedySpeech/checkpoints/speedyspeech.pth')
+    checkpoint = torch.load('/content/drive/MyDrive/SpeedySpeech/checkpoints/speedyspeech_synth_en.pth')
 
     # Get the checkpoint state dict
     state_dict_keys = list(checkpoint['state_dict'].keys())
@@ -489,8 +489,8 @@ if __name__ == '__main__':
     
     # Delete embedding state dict --> 'encoder.prenet.0.weight', 'encoder.prenet.1.weight', 'encoder.prenet.1.bias'
     del pretrained_state_dict['encoder.prenet.0.weight']
-    del pretrained_state_dict['encoder.prenet.1.weight']
-    del pretrained_state_dict['encoder.prenet.1.bias']
+    #del pretrained_state_dict['encoder.prenet.1.weight']
+    #del pretrained_state_dict['encoder.prenet.1.bias']
 
     # Load checkpoint to model
     missing_keys, unexpected_keys = m.load_state_dict(pretrained_state_dict, strict = False)
@@ -514,7 +514,7 @@ if __name__ == '__main__':
         epochs=args.epochs,
         grad_clip=args.grad_clip,
         batch_size=args.batch_size,
-        checkpoint_every=1,
+        checkpoint_every=5,
         logdir=os.path.join('/content/drive/MyDrive/SpeedySpeech', 'logs2', time.strftime("%Y-%m-%dT%H-%M-%S") + '-' + args.name)
     )
 

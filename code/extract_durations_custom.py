@@ -148,7 +148,7 @@ if __name__ == '__main__':
     from torch.utils.data.sampler import SequentialSampler
 
     from datasets.AudioDataset import AudioDataset
-    from duration_extractor import DurationExtractor, Collate
+    from duration_extractor_custom import DurationExtractor, Collate
 
     parser = argparse.ArgumentParser()
     parser.add_argument("checkpoint", type=str, help="Path to checkpoint of convolutional_cacotron model")

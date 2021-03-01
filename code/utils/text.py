@@ -68,3 +68,61 @@ class TextProcessor:
                 for s in phonemes
             ]
             return pad_batch(phonemes)
+
+class TextProcessorInd:
+
+    phonemes = ['pad'] \
+                + [
+                    'ch', 'ng', 'ny', 'ai', 'ay', 'oi', 'oy', 'ei',
+                    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                ] \
+                + [
+                ' ', '!', '?', '.', ',', ','
+                ]
+
+    def __init__(self):
+
+        self.char_list, self.punctuation, self.vocab_mapper, self.special = self.prepare_vocab()
+
+
+    def __call__(self, texts):
+        '''
+        Input : list of strings ['januari yang basah', 'Hai!']
+        Output: list of list of int [[1,2,4,0,0], [2,4,5]]
+        '''
+
+        # Filter texts
+        filtered_texts = [''.join(c for c in text.lower() if c in self.char_list + self.punctuation) for text in texts]
+        
+        # Tokenize texts to phonemes
+        sep_texts = []
+        for text in filtered_texts:
+            for c in self.char_list + self.punctuation:
+                text = text.replace(c, str(self.vocab_mapper['phon2idx'][c]) + '-')
+            sep_texts.append(text)
+
+        tokenized_phonemes = [[int(t) for t in text.split('-')[:-1]] for text in sep_texts]
+
+        return pad_batch(tokenized_phonemes)
+
+    def prepare_vocab(self):
+
+        char_list = [
+            'ch', 'ng', 'ny', 'ai', 'ay', 'oi', 'oy', 'ei',
+            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        ]
+
+        punctuation = [
+            ' ', '!', '?', '.', ',', ','
+        ]
+
+        special = [
+            'pad'
+        ]
+
+        vocab_mapper = {
+            'phon2idx': {k: v for k, v in zip(special + char_list + punctuation, range(0, len(char_list + punctuation)))},
+            'idx2phon': {k: v for k, v in zip(range(0, len(char_list + punctuation)), special + char_list + punctuation)}
+        }
+
+        return char_list, punctuation, vocab_mapper, special

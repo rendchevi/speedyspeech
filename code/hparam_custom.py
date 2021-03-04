@@ -15,18 +15,18 @@ class HPStft:
     clip_val = 1e-5  # every magnitude under this value is clipped - used in dynamic range compression
 
     # precomputed statistics for log-mel-spectrs for LJSpeech
-    spec_mean = -5.522 # -1.4943388 # 
-    spec_std = 2.063 # 0.87366074 # 
-    spec_min = -11.5129 # -3.4867864  # 
-    spec_max = 2.0584 # 1.551982 # 
+    spec_mean = -5.4873047 # -5.522 
+    spec_std = 3.3186135 # 2.063 
+    spec_min = -11.512925 #-11.5129 
+    spec_max = 2.306538 # 2.0584 
 
 
 class HPText:
     # needed to make independent on the directory from which python is invoked
     #dataset = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'datasets/data/TITML-IDN-LJ')
-    dataset = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'datasets/data/LJ-DAMAYANTI')
+    dataset = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'datasets/data/TED-DMY-FIFTH')
     #num_train, num_valid = 325, 330 # 13000, 13099  # train will use (0, 13000), valid wil use (13000, 13099)
-    num_train, num_valid = 13000, 13099
+    num_train, num_valid = 2600, 2619
 
     punctuation = list("'\",.:?!")
     graphemes = ["<pad>", "<unk>"] + list('abcdefghijklmnopqrstuvwxyz ') + punctuation
